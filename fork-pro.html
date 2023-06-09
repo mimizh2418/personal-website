@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="assets/styles/style.css">
+        <title>fork pro</title>
+        <script>
+            function requestFullScreen() {
+                const element = document.body;
+                // Supports most browsers and their versions.
+                var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+                if (requestMethod) { // Native full screen.
+                    requestMethod.call(element);
+                } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+                    var wscript = new ActiveXObject("WScript.Shell");
+                    if (wscript !== null) {
+                        wscript.SendKeys("{F11}");
+                    }
+                }
+            }
+
+            
+            function purchase() {
+                const fork = document.getElementById("fork-video")
+                fork.innerHTML = '<source src="assets/media/purchase.mp4">'
+                fork.muted = ""
+                fork.load()
+                fork.play()
+
+                for (let element of document.getElementsByClassName("nav-link")) {element.href = "#"}
+                requestFullScreen()
+            }
+        </script>
+    </head>
+
+    <body>
+        <nav  class="navbar navbar-expand-sm navbar-custom">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">alvin zhang</a>
+                <ul id=navbar class="navbar-nav">
+                    <li  class="nav-item p-1">
+                        <a class="nav-link btn" href="./">home</a>
+                    </li>
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn" href="games/">games</a>
+                    </li>
+                    <li class="nav-item p-1">
+                        <a class="nav-link active btn" href="fork-pro.html">fork pro</a>
+                    </li>
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn" href="robotics.html">robotics</a>
+                    </li>
+                    <li class="nav-item p-1">
+                        <a class="nav-link btn" href="https://github.com/mimizh2418">github</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="video-section">
+            <video width="852" height="480" autoplay muted loop id="fork-video">
+                <source src="assets/media/brand_new_fork.mp4">
+                <source src="assets/media/brand_new_fork.MOV">
+            </video>
+
+            <div class="content-center video-overlay text-center">
+                <p class="display-6">fork pro</p>
+                <p>starting at only $254</p>
+                <button type="button" onclick="purchase()" class="btn btn-primary btn-lg">purchase</button>
+                <br>
+            </div>
+        </div>
+
+    </body>
+</html>
