@@ -53,3 +53,7 @@ body {
     flex-flow: row wrap;
     justify-content: center;
 }
+
+.card {
+    background-color: #1a1d20;
+}
