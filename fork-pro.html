@@ -26,14 +26,17 @@
 
             
             function purchase() {
-                const fork = document.getElementById("fork-video")
-                fork.innerHTML = '<source src="assets/media/purchase.mp4">'
-                fork.muted = ""
-                fork.load()
-                fork.play()
+                const fork = document.getElementById("fork-video");
+                fork.innerHTML = '<source src="assets/media/purchase.mp4">';
+                fork.muted = "";
+                fork.load();
+                fork.play();
 
-                for (let element of document.getElementsByClassName("nav-link")) {element.href = "#"}
-                requestFullScreen()
+                for (let element of document.getElementsByClassName("nav-link")) {
+                    element.href = "#";
+                    element.target = "_self"
+                }
+                requestFullScreen();
             }
         </script>
     </head>
@@ -56,7 +59,7 @@
                         <a class="nav-link btn" href="robotics.html">robotics</a>
                     </li>
                     <li class="nav-item p-1">
-                        <a class="nav-link btn" href="https://github.com/mimizh2418">github</a>
+                        <a class="nav-link btn" href="https://github.com/mimizh2418" target="_blank">github</a>
                     </li>
                 </ul>
             </div>
