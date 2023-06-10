@@ -152,7 +152,6 @@ class Paddle extends Hitbox {
     }
 
     public setSpeed(speed: number) {
-        if (this.vy != speed && this.isPlayer) socket.emit("paddleSpeedChange", speed, this.getPosition().y);
         this.vy = speed;
     }
 
@@ -290,7 +289,7 @@ function manageState() {
                 // currentState = GameState.Serve;
                 ball = new Ball(false);
                 socket.emit("startGame", ball.getVector());
-                onServe(ball.getVector(), false)
+                onServe(ball.getVector(), false);
             }
             break;
         case GameState.Playing:
@@ -301,7 +300,7 @@ function manageState() {
             if (ball.hitsWall(BoxSide.Right)) {
                 const vector = new Ball(false).getVector();
                 socket.emit("opponentScored", vector);
-                onServe(vector, false)
+                onServe(vector, false);
             }
             break;
         case GameState.Serve:
@@ -313,7 +312,7 @@ function manageState() {
             break;
         case GameState.Over:
             if (isKeyPressed(" ")) {
-                window.location.reload()
+                window.location.reload();
             }
             
     }
@@ -366,7 +365,7 @@ window.onload = () => {
     nameElement.addEventListener("change",rememberName);
     nameElement.value = localStorage.getItem("pong_player_name");
     nameElement.addEventListener("keydown", (ev) => {if (ev.code == "Enter") {socket.emit("setName", nameElement.value)}})
-    socket.emit("login", nameElement.value ?? "Unnamed")
+    socket.emit("login", nameElement.value ?? "Unnamed");
 }
 
 window.onbeforeunload = () => {socket.emit("leave");console.log("disconnecting"); return null;}
@@ -384,12 +383,6 @@ socket.on("paddleHit", (ballPosition: {x: number, y: number}, ballVector: Vector
     opponentPaddle.setPosition(opponentPaddle.getPosition().x, paddlePosition);
 });
 
-socket.on("paddleSpeedChange", (speed: number, ypos: number) => {
-    console.log("speed changed");
-    opponentPaddle.setSpeed(speed);
-    // opponentPaddle.setPosition(opponentPaddle.getPosition().x, ypos);
-})
-
 socket.on("scores", (scores:{self: number, opponent: number}) => {
     playerScore = scores.self;
     opponentScore = scores.opponent;
@@ -406,7 +399,7 @@ socket.on("inRoom", () => {
 
 socket.on("opponentName", (name:string) => {
     let opponentName=document.querySelector("#opponentName") as HTMLSpanElement;
-    opponentName.innerText = name ?? "Unknown"
+    opponentName.innerText = name ?? "Unknown";
 })
 
 socket.on("cancelGame", () => {
@@ -416,11 +409,10 @@ socket.on("cancelGame", () => {
 
 socket.on("paddlePosition", (paddlePosition:number) => {
     opponentPaddle.setPosition(opponentPaddle.getPosition().x, paddlePosition);
-    console.log("paddle positions synced");
 })
 
 socket.on("ping", (cb:(socket:string) => void) => {
-    cb(socket.id)
+    cb(socket.id);
 })
 
-setInterval( () => {socket.emit("paddlePosition", playerPaddle.getPosition().y)}, 25);
+setInterval( () => {socket.emit("paddlePosition", playerPaddle.getPosition().y)}, 20);
