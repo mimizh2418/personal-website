@@ -9,7 +9,8 @@ const maxBallStartAngle = 20;
 const ballSpeed = 15;
 const serveDelay = 750;
 const tickDelay = 1000/60;
-const paddleKP = 0.1;
+const maxPaddleKP = 1;
+const minPaddleKP = 0.1
 
 enum GameState {
     Start,
@@ -260,12 +261,11 @@ function moveComputerPaddle() {
         computerPaddle.setSpeed(0);
         return;
     }
+    let scoreDiff = playerScore - computerScore;
+    let paddleKP = minPaddleKP + (scoreDiff + 6) * (maxPaddleKP - minPaddleKP)/(12);
+    console.log(paddleKP);
     let error = setpoint - computerPaddle.getPosition().y;
     computerPaddle.setSpeed(error * paddleKP);
-    console.log(computerPaddle.vy);
-    // if (Math.abs(computerPaddle.getPosition().y - setpoint) < maxPaddleSpeed * 2 && computerPaddle.vy == 0) computerPaddle.setSpeed(0);
-    // else if (computerPaddle.getPosition().y - maxPaddleSpeed < setpoint) computerPaddle.setSpeed(computerPaddle.vy + 1);
-    // else if (computerPaddle.getPosition().y + maxPaddleSpeed > setpoint) computerPaddle.setSpeed(computerPaddle.vy - 1);
 }
 
 function manageState() {
